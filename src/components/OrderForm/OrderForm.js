@@ -1,11 +1,29 @@
 import { useState } from "react";
 
-function OrderForm(props) {
+function OrderForm({ addOrder }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
+  const newOrder = {
+      id: Date.now(),
+      name,
+      ingredients
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!name) {
+      alert('Please fill out the name field');
+      return;
+    }
+
+    if (!ingredients.length) {
+      alert('Please select at least one ingredient');
+      return;
+    }
+
+    addOrder(newOrder)
     clearInputs();
   }
 
@@ -13,6 +31,11 @@ function OrderForm(props) {
     setName("");
     setIngredients([]);
   };
+
+  function buildIngredients(e, newIngredient) {
+    e.preventDefault();
+    setIngredients([...ingredients, newIngredient])
+  }
 
   const possibleIngredients = [
     "beans",
@@ -31,9 +54,9 @@ function OrderForm(props) {
   const ingredientButtons = possibleIngredients.map((ingredient) => {
     return (
       <button
-        key={ingredient}
         name={ingredient}
-        // onClick={(e) => }
+        value={ingredient}
+        onClick={(e) => buildIngredients(e, e.target.value)}
       >
         {ingredient}
       </button>
@@ -47,7 +70,7 @@ function OrderForm(props) {
         placeholder="Name"
         name="name"
         value={name}
-        // onChange={(e) => }
+        onChange={(e) => setName(e.target.value) }
       />
 
       {ingredientButtons}
