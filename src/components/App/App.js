@@ -16,8 +16,20 @@ function App() {
     .catch((err) => console.error("Error fetching:", err));
   }, []);
 
+  const postOrder = (newOrder) => {
+    return fetch('http://localhost:3001/api/v1/orders', {
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newOrder)
+    })
+    .then(response => response.json())
+    .then(newData => setOrders([...orders, newData]))
+  }
+
   function addOrder(newOrder) {
-    setOrders([...orders, newOrder])
+    postOrder(newOrder)
   }
 
   return (
