@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 function OrderForm({ addOrder }) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [alert, setAlert] = useState('');
 
   const newOrder = {
       id: Date.now(),
@@ -12,15 +13,16 @@ function OrderForm({ addOrder }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setAlert('');
 
     if (!name) {
-      alert('Please fill out the name field');
-      return;
+      setAlert('Please fill out the name field before continuing')
+      return
     }
 
     if (!ingredients.length) {
-      alert('Please select at least one ingredient');
-      return;
+      setAlert('Please select at least one ingredient before continuing')
+      return
     }
 
     addOrder(newOrder)
@@ -79,6 +81,7 @@ function OrderForm({ addOrder }) {
       <p className='order-msg'>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
       <button className='submit-btn' onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      { alert && <p className='alert-msg'>{alert}</p>}
     </form>
   );
 }

@@ -33,7 +33,7 @@ describe("User flows", () => {
     cy.get('.order').last().contains('sofritas')
     cy.get('.order').last().contains('beans')
     cy.get('.order').last().contains('sour cream')
-    //add background image?
+    cy.get('.App').should('have.css', 'background-image')
   });
 
   it('posts a new order and displays it on the DOM', () => {
@@ -61,22 +61,24 @@ describe("User flows", () => {
     cy.get('.order').last().contains('steak')
   });
 
-  it.only('prevents order submission if name field is incomplete and/or no ingredients have been selected', () => {
+  it('prevents order submission if name field is incomplete and/or no ingredients have been selected', () => {
     cy.get('.orders-container').children().should('have.length', 3)
 
     cy.get('.submit-btn').click()
+    cy.get('.alert-msg').contains('Please fill out the name field before continuing')
     cy.get('.orders-container').children().should('have.length', 3)
 
     cy.get('input[name=name]').type('Mock Cody').should('have.value', 'Mock Cody')
     cy.get('.order-msg').contains('Order: Nothing selected')
     cy.get('.submit-btn').click()
+    cy.get('.alert-msg').contains('Please select at least one ingredient before continuing')
     cy.get('.orders-container').children().should('have.length', 3)
 
     cy.get('input[name=name]').clear().should('have.value', '')
     cy.get('.ing-btn').contains('hot sauce').click()
     cy.get('.order-msg').contains('Order: hot sauce')
     cy.get('.submit-btn').click()
+    cy.get('.alert-msg').contains('Please fill out the name field before continuing')
     cy.get('.orders-container').children().should('have.length', 3)
-
   });
 });

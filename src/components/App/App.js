@@ -11,7 +11,6 @@ function App() {
     getOrders()
     .then(data => {
       setOrders(data.orders)
-      console.log(orders)
     })
     .catch((err) => console.error("Error fetching:", err));
   }, []);
