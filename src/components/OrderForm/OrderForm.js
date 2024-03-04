@@ -54,6 +54,7 @@ function OrderForm({ addOrder }) {
   const ingredientButtons = possibleIngredients.map((ingredient) => {
     return (
       <button
+        className='ing-btn'
         name={ingredient}
         value={ingredient}
         onClick={(e) => buildIngredients(e, e.target.value)}
@@ -75,9 +76,9 @@ function OrderForm({ addOrder }) {
 
       {ingredientButtons}
 
-      <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
+      <p className='order-msg'>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      <button className='submit-btn' onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
   );
 }

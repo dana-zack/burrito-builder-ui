@@ -1,0 +1,28 @@
+{
+  "orders": [
+    {
+      "id": 1,
+      "name": "Mock Pat",
+      "ingredients": [
+        "beans",
+        "lettuce"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mock Sam",
+      "ingredients": [
+        "steak"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Mock Alex",
+      "ingredients": [
+        "sofritas",
+        "beans",
+        "sour cream"
+      ]
+    }
+  ]
+}
